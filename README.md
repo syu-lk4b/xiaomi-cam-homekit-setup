@@ -1,5 +1,7 @@
 # homelab-config
 
+English | [简体中文](README.zh-CN.md)
+
 Home lab setup notes and configs: OpenWrt, Home Assistant, HomeKit, go2rtc cameras.
 
 Current content: Xiaomi camera → Home Assistant & HomeKit via go2rtc on OpenWrt Docker, with VAAPI H.265→H.264 transcoding and QR-code Mi login.
