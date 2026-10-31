@@ -20,7 +20,7 @@ Home Assistant ── Generic Camera ──> dashboard + HomeKit (accessory mode
 
 | Path | What |
 |---|---|
-| [docs/xiaomi-camera-go2rtc.md](docs/xiaomi-camera-go2rtc.md) | Full walkthrough (Chinese): login, deploy, HA, HomeKit, pitfalls, measured performance |
+| [docs/xiaomi-camera-go2rtc.md](docs/xiaomi-camera-go2rtc.md) ([中文](docs/xiaomi-camera-go2rtc.zh-CN.md)) | Full walkthrough: login, deploy, HA, HomeKit, pitfalls, measured performance |
 | [go2rtc/go2rtc.example.yaml](go2rtc/go2rtc.example.yaml) | go2rtc config template |
 | [go2rtc/xiaomi_qr_login.py](go2rtc/xiaomi_qr_login.py) | Xiaomi QR-code login → writes `passToken` into `go2rtc.yaml` |
 | [openwrt/run-go2rtc.sh](openwrt/run-go2rtc.sh) | Create the go2rtc container on the router |
