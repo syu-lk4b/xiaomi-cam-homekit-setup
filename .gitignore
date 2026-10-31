@@ -1,0 +1,7 @@
+# real configs hold the Xiaomi passToken; only *.example.* files are tracked
+go2rtc/go2rtc.yaml
+go2rtc/xiaomi_qr.png
+.env
+__pycache__/
+*.pyc
+.DS_Store

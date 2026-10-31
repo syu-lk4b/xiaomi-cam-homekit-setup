@@ -1,0 +1,23 @@
+# go2rtc config deployed at /opt/go2rtc/go2rtc.yaml on OpenWrt (<ROUTER_IP>).
+# Real file holds the Xiaomi passToken — keep it out of git; this is the template.
+api:
+  listen: "<ROUTER_IP>:1984"
+rtsp:
+  # all interfaces: go2rtc's own ffmpeg reads from 127.0.0.1; WAN zone rejects input
+  listen: ":8554"
+webrtc:
+  listen: ""
+log:
+  level: info
+streams:
+  ipc009: xiaomi://<XIAOMI_USER_ID>:cn@<CAM_IP>?did=<CAMERA_DID>&model=chuangmi.camera.ipc009
+  # built-in #hardware=vaapi template lacks -hwaccel_device and fails here, so spell it out
+  ipc009_h264: >-
+    exec:ffmpeg -hide_banner -v error
+    -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -hwaccel_output_format vaapi
+    -rtsp_transport tcp -i rtsp://127.0.0.1:8554/ipc009
+    -c:v h264_vaapi -b:v 2M -g 40 -bf 0 -profile:v high
+    -c:a aac -ar 16000 -b:a 32k
+    -rtsp_transport tcp -f rtsp {output}
+xiaomi:
+  "<XIAOMI_USER_ID>": "V1:<passToken from go2rtc/xiaomi_qr_login.py>"
