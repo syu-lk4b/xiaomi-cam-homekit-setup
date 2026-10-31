@@ -68,7 +68,8 @@ docker run -d --name go2rtc \
 - 用普通版镜像，不用 `-hardware` 版：普通的 Alpine 镜像里已经带了 iHD/i965 驱动，支持 vaapi 和 qsv。
 - `--memory` 在这个内核上无效：内核没有内存 cgroup，Docker 会提示后忽略。
 - `--restart no` 是临时的。观察稳定后，改成 `docker update --restart unless-stopped go2rtc`。
-- RTSP 监听在 `:8554`（所有网卡）：go2rtc 内部的 ffmpeg 要从 127.0.0.1 读流。WAN 口有防火墙挡着，但 VPN 区域（Tailscale/ipsec）允许入站，而这一路 RTSP **没有密码**。
+- RTSP 监听在 `:8554`（所有网卡）：go2rtc 内部的 ffmpeg 要从 127.0.0.1 读流。WAN 口有防火墙挡着，但 VPN 区域（Tailscale/ipsec）允许入站，所以 API 和 RTSP 都要设用户名和密码（见模板）。
+- ⚠️ **API 一定要加密码**：`/api/config` 会原样返回整个配置文件，里面就有 passToken。不加密码，局域网里谁都能拿到小米账号的 token。
 - 自带的 `#hardware=vaapi` 模板在这台机器上会报 `hwupload: A hardware device reference is required`，所以 `ipc009_h264` 改用 `exec:ffmpeg`，并显式加上 `-hwaccel_device`。
 
 ### 实测性能
@@ -83,8 +84,8 @@ docker run -d --name go2rtc \
 ## 3. Home Assistant
 
 - 集成：Generic Camera（标题「小米云台摄像头」）。
-  - Stream source：`rtsp://<ROUTER_IP>:8554/ipc009_h264`，RTSP over TCP
-  - Still image：`http://<ROUTER_IP>:1984/api/frame.jpeg?src=ipc009`，帧率 2
+  - Stream source：`rtsp://<GO2RTC_USER>:<GO2RTC_PASSWORD>@<ROUTER_IP>:8554/ipc009_h264`，RTSP over TCP
+  - Still image：`http://<ROUTER_IP>:1984/api/frame.jpeg?src=ipc009`，帧率 2，用户名/密码填在 Generic Camera 的 username/password 字段（basic auth）
   - 实体：`camera.xiaomi_ptz`，前端支持 WebRTC 和 HLS
   - ⚠️ 添加时 HA 会在 10 秒内校验流。冷启动太慢会报 `timeout`，先在路由器上用 `docker exec go2rtc ffmpeg -i rtsp://127.0.0.1:8554/ipc009_h264 -c copy -f null -` 把流预热。
 - neon-panel（`/neon-panel/overview`）：在 CAMERAS 区 ESP32-CAM 下方加了一张 `picture-entity` 卡片，名字是「小米云台」。卡片样式照搬 ESP32-CAM（card_mod 霓虹风格）。
