@@ -52,3 +52,4 @@ Then add a Generic Camera in Home Assistant and expose it through the HomeKit in
 | `<CAM_IP>` / `<YI_CAM_IP>` | Camera LAN IPs |
 | `<XIAOMI_USER_ID>` | Xiaomi account numeric user ID |
 | `<CAMERA_DID>` | Camera device ID from Mi Home |
+| `<GO2RTC_USER>` / `<GO2RTC_PASSWORD>` | go2rtc API + RTSP credentials (required: `/api/config` exposes the passToken) |
