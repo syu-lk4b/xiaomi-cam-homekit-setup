@@ -20,7 +20,7 @@ Home Assistant ── Generic Camera ──> 仪表盘 + HomeKit（单配件模�
 
 | 路径 | 内容 |
 |---|---|
-| [docs/xiaomi-camera-go2rtc.md](docs/xiaomi-camera-go2rtc.md) | 完整教程：登录、部署、HA、HomeKit、踩坑记录、实测性能 |
+| [docs/xiaomi-camera-go2rtc.zh-CN.md](docs/xiaomi-camera-go2rtc.zh-CN.md)（[English](docs/xiaomi-camera-go2rtc.md)） | 完整教程：登录、部署、HA、HomeKit、踩坑记录、实测性能 |
 | [go2rtc/go2rtc.example.yaml](go2rtc/go2rtc.example.yaml) | go2rtc 配置模板 |
 | [go2rtc/xiaomi_qr_login.py](go2rtc/xiaomi_qr_login.py) | 米家扫码登录，把 `passToken` 写进 `go2rtc.yaml` |
 | [openwrt/run-go2rtc.sh](openwrt/run-go2rtc.sh) | 在路由器上创建 go2rtc 容器 |
